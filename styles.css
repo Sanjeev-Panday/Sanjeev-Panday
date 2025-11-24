@@ -1,5 +1,30 @@
 /* Custom Styles to complement Bootstrap 5.3 */
 
+/* Better readability - Base typography */
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--bs-body-color);
+}
+
+/* Improved text contrast */
+.text-secondary {
+    color: var(--bs-secondary-color) !important;
+    opacity: 0.9;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* List items readability */
+ul li, ol li {
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
 /* Professional accent color for Technical Lead portfolio */
 .text-accent {
     color: var(--bs-primary) !important;
@@ -32,37 +57,72 @@ html {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Timeline visual indicator */
+/* Timeline visual indicator - Alternating Layout */
 .timeline {
     position: relative;
-    padding-left: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .timeline::before {
     content: "";
     position: absolute;
-    left: 8px;
+    left: 50%;
+    transform: translateX(-50%);
     top: 0;
     bottom: 0;
-    width: 3px;
+    width: 4px;
     background-color: var(--bs-primary);
     border-radius: 2px;
 }
 
 .timeline-item {
     position: relative;
+    width: 50%;
+    padding: 0 40px 20px;
+    box-sizing: border-box;
 }
 
-.timeline-item::before {
+/* Odd items (1st, 3rd, etc.) - Left side */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item:nth-child(odd) .card {
+    text-align: left;
+}
+
+.timeline-item:nth-child(odd)::before {
     content: "";
     position: absolute;
-    left: -26px;
-    top: 24px;
-    width: 12px;
-    height: 12px;
+    right: -8px;
+    top: 20px;
+    width: 16px;
+    height: 16px;
     background-color: var(--bs-primary);
     border-radius: 50%;
-    border: 3px solid var(--bs-body-bg);
+    border: 4px solid var(--bs-body-bg);
+    z-index: 1;
+}
+
+/* Even items (2nd, 4th, etc.) - Right side */
+.timeline-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+}
+
+.timeline-item:nth-child(even)::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--bs-primary);
+    border-radius: 50%;
+    border: 4px solid var(--bs-body-bg);
+    z-index: 1;
 }
 
 /* List styling for better readability */
@@ -101,22 +161,55 @@ footer {
 
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {
+    body {
+        font-size: 1rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    ul li, ol li {
+        font-size: 1rem;
+    }
+
     .hero-photo {
         max-width: 140px;
     }
 
+    /* Mobile timeline - single column */
     .timeline {
-        padding-left: 25px;
+        padding-left: 30px;
     }
 
     .timeline::before {
-        left: 6px;
+        left: 10px;
+        transform: none;
     }
 
-    .timeline-item::before {
-        left: -23px;
-        width: 10px;
-        height: 10px;
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding: 0 0 20px 0;
+        text-align: left !important;
+    }
+
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        left: 0;
+        text-align: left;
+    }
+
+    .timeline-item:nth-child(odd)::before,
+    .timeline-item:nth-child(even)::before {
+        left: -26px;
+        right: auto;
+        width: 12px;
+        height: 12px;
+    }
+
+    .timeline-item .card {
+        text-align: left;
     }
 
     /* Stack flex items on mobile for experience cards */
